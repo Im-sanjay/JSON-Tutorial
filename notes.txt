@@ -1,0 +1,333 @@
+1. step 1
+
+
+
+var ourRequest = new XMLHttpRequest();
+
+// open the link (.json)
+ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json');
+
+ourRequest.onload = function(){
+
+	// print the .json data in the console 
+	// console.log(ourRequest.responseText);
+
+		// storing the .json data in the ourData variable 	
+	// var ourData = ourRequest.responseText;
+	 	// only print [ , bcoz , it doesnt know that the requested link is the json data 
+	// console.log(ourData[0]);
+
+
+	// here we are parsing the requested link into json format
+
+	// output: {name: "Meowsy", species: "cat", foods: {…}}
+	// 	name: "Meowsy"
+	// 	species: "cat"
+	// 	foods: {likes: Array(2), dislikes: Array(2)}
+	// 	__proto__: Object
+	
+	var ourData = JSON.parse(ourRequest.responseText);
+	console.log(ourData[0]);
+};
+
+ourRequest.send();
+
+
+
+
+2. step 
+when we click on the button we will see the  json data in the console 
+
+var btn = document.getElementById("btn");
+
+
+btn.addEventListener("click" , function(){
+
+	var ourRequest = new XMLHttpRequest();
+
+	// open the link (.json)
+	ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json');
+
+	ourRequest.onload = function(){
+
+		// print the .json data in the console 
+		// console.log(ourRequest.responseText);
+
+			// storing the .json data in the ourData variable 	
+		// var ourData = ourRequest.responseText;
+		 	// only print [ , bcoz , it doesnt know that the requested link is the json data 
+		// console.log(ourData[0]);
+
+
+		// here we are parsing the requested link into json format
+
+		var ourData = JSON.parse(ourRequest.responseText);
+		console.log(ourData[0]);
+};
+
+ourRequest.send();
+
+});
+
+
+output:
+{name: "Meowsy", species: "cat", foods: {…}}
+name: "Meowsy"
+species: "cat"
+foods: {likes: Array(2), dislikes: Array(2)}
+__proto__: Object
+
+
+
+
+
+3. step 
+var animalContainer = document.getElementById("animal-info");
+
+var btn = document.getElementById("btn");
+
+
+btn.addEventListener("click" , function(){
+
+	var ourRequest = new XMLHttpRequest();
+
+	// open the link (.json)
+	ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json');
+
+	ourRequest.onload = function(){
+
+		// print the .json data in the console 
+		// console.log(ourRequest.responseText);
+
+			// storing the .json data in the ourData variable 	
+		// var ourData = ourRequest.responseText;
+		 	// only print [ , bcoz , it doesnt know that the requested link is the json data 
+		// console.log(ourData[0]);
+
+
+		// here we are parsing the requested link into json format
+
+		var ourData = JSON.parse(ourRequest.responseText);
+		// console.log(ourData[0]);
+		renderHTML(ourData);
+};
+
+ourRequest.send();
+
+});
+
+
+//add HTML to the page 
+// add html to the container div ( id = animal-info)
+function renderHTML(data){
+	animalContainer.insertAdjacentHTML('beforeend' , 'testing 123');
+}
+
+
+output:
+when we click on the button "btn" , we will get this in the browser 
+testing 123
+
+
+4. looping in the json data
+// add HTML to the page 
+// add html to the container div ( id = animal-info)
+function renderHTML(data){
+	var htmlString = "";
+
+	for(i=0; i<data.length; i++){
+		htmlString += "<p>" + data[i].name+"is a "+ data[i].species+"</p>";
+	}
+	animalContainer.insertAdjacentHTML('beforeend' , htmlString);
+}
+
+
+output:
+when we click on  the button we will get this, we will get the same data if click multiple times 
+Meowsyis a cat
+
+Barkyis a dog
+
+Purrpawsis a cat
+
+
+
+5. step
+looping through the data 3 time with different data , 4th time will show error in the console
+
+var pageCounter = 1;
+var animalContainer = document.getElementById("animal-info");
+
+var btn = document.getElementById("btn");
+
+
+btn.addEventListener("click" , function(){
+
+	var ourRequest = new XMLHttpRequest();
+
+	// open the link (.json)
+	ourRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-' +pageCounter + '.json');
+
+	ourRequest.onload = function(){
+
+		// print the .json data in the console 
+		// console.log(ourRequest.responseText);
+
+			// storing the .json data in the ourData variable 	
+		// var ourData = ourRequest.responseText;
+		 	// only print [ , bcoz , it doesnt know that the requested link is the json data 
+		// console.log(ourData[0]);
+
+
+		// here we are parsing the requested link into json format
+
+		var ourData = JSON.parse(ourRequest.responseText);
+		// console.log(ourData[0]);
+		renderHTML(ourData);
+};
+
+ourRequest.send();
+pageCounter++
+
+});
+
+
+// add HTML to the page 
+// add html to the container div ( id = animal-info)
+function renderHTML(data){
+	var htmlString = "";
+
+	for(i=0; i<data.length; i++){
+		htmlString += "<p>" + data[i].name+"is a "+ data[i].species+"</p>";
+	}
+	animalContainer.insertAdjacentHTML('beforeend' , htmlString);
+}
+
+output:
+Meowsyis a cat
+
+Barkyis a dog
+
+Purrpawsis a cat
+
+Whiskersis a cat
+
+Woofis a dog
+
+Fluffyis a cat
+
+Kittyis a cat
+
+Pupsteris a dog
+
+Tuxis a cat
+
+
+6 .step 
+hide the button if it is greater that 3
+
+ourRequest.send();
+pageCounter++
+if (pageCounter > 3){
+	btn.classList.add("hide-me");
+};
+
+
+
+6. step 
+nested loop in the json data 
+
+// add HTML to the page 
+// add html to the container div ( id = animal-info)
+function renderHTML(data){
+	var htmlString = "";
+
+	for(i=0; i<data.length; i++){
+		htmlString += "<p>" + data[i].name+"is a "+ data[i].species+"that likes to eat ";
+
+		for(ii = 0 ; ii<data[i].foods.likes.length; ii++){
+			// htmlString += data[i].foods.likes[ii];
+			if (ii == 0) {
+				htmlString += data[i].foods.likes[ii];
+			}else{
+				htmlString += " and " + data[i].foods.likes[ii];
+			}
+		}
+
+	htmlString += "</p>";
+
+	}
+	animalContainer.insertAdjacentHTML('beforeend' , htmlString);
+}
+
+
+7. adding dislikes 
+
+// add HTML to the page 
+// add html to the container div ( id = animal-info)
+function renderHTML(data){
+	var htmlString = "";
+
+	for(i=0; i<data.length; i++){
+		htmlString += "<p>" + data[i].name+"is a "+ data[i].species+"that likes to eat ";
+
+		for(ii = 0 ; ii<data[i].foods.likes.length; ii++){
+			// htmlString += data[i].foods.likes[ii];
+			if (ii == 0) {
+				htmlString += data[i].foods.likes[ii];
+			}else{
+				htmlString += " and " + data[i].foods.likes[ii];
+			}
+		}
+
+	htmlString += " and dislikes";
+	for(ii = 0 ; ii<data[i].foods.dislikes.length; ii++){
+		// htmlString += data[i].foods.likes[ii];
+		if (ii == 0) {
+			htmlString += data[i].foods.dislikes[ii];
+		}else{
+			htmlString += " and " + data[i].foods.dislikes[ii];
+		}
+	}
+
+	htmlString += "</p>";
+
+	}
+	animalContainer.insertAdjacentHTML('beforeend' , htmlString);
+}
+
+
+
+
+Json data :
+
+
+
+
+
+[
+  {
+    "name": "Whiskers",
+    "species" : "cat",
+    "foods": {
+      "likes": ["celery", "strawberries"],
+      "dislikes": ["carrots"]
+    }
+  },
+  {
+    "name": "Woof",
+    "species" : "dog",
+    "foods": {
+      "likes": ["dog food"],
+      "dislikes": ["cat food"]
+    }
+  },
+  {
+    "name": "Fluffy",
+    "species" : "cat",
+    "foods": {
+      "likes": ["canned food"],
+      "dislikes": ["dry food"]
+    }
+  }
+]
