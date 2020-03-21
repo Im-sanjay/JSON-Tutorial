@@ -1,3 +1,3 @@
 # JSON-Tutorial
 
-![Alt text](/jsoninitial.jpg?raw=true "Optional Title")
+![Alt text](jsoninitial.jpg)
